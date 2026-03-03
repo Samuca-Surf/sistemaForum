@@ -1,11 +1,26 @@
 package com.samuel.forum.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;import java.time.LocalDateTime;
 
 @Entity
-@Table
 public class Comentario {
 
-    //TODO [Reverse Engineering] generate columns from DB
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String conteudo;
+
+    private LocalDateTime dataCriacao;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "postagem_id")
+    private Postagem postagem;
+
+    public Comentario(){}
+
 }

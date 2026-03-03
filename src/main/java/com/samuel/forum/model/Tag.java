@@ -1,9 +1,6 @@
 package com.samuel.forum.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;import java.util.List;
 
 @Entity
 public class Tag {
@@ -12,6 +9,9 @@ public class Tag {
     private Integer id;
 
     private String nomeTag;
+
+    @OneToMany(mappedBy = "tags")
+    private List<Postagem> postagens;
 
     public Tag(){}
 

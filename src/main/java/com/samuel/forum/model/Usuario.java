@@ -1,14 +1,11 @@
 package com.samuel.forum.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Date;import java.util.List;
 
 @Entity
 public class Usuario {
@@ -21,13 +18,19 @@ public class Usuario {
     private String nome;
     private String senha;
     private Double telefone;
+
     private Date dataNascimento;
     private LocalDateTime dataCadastro;
-    private ArrayList permissoes;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Postagem> postagens;
+
+    @ElementCollection
+    private List<String> permissoes;
 
     public Usuario() {}
 
-    public Usuario(Integer id, String email, String senha, String nome, Double telefone, Date dataNascimento, LocalDateTime dataCadastro, ArrayList permissoes) {
+    public Usuario(Integer id, String email, String senha, String nome, Double telefone, Date dataNascimento, LocalDateTime dataCadastro, List<Postagem> postagens) {
         this.id = id;
         this.email = email;
         this.senha = senha;
@@ -35,7 +38,7 @@ public class Usuario {
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
         this.dataCadastro = dataCadastro;
-        this.permissoes = permissoes;
+        this.postagens = postagens;
     }
 
     public Integer getId(){

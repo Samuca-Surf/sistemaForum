@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Postagem {
@@ -11,7 +12,7 @@ public class Postagem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPostagem;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
@@ -19,14 +20,23 @@ public class Postagem {
     private String conteudo;
 
     private LocalDateTime dataCriacao;
-    private ArrayList<Tag> tags;
-    private ArrayList<Comentario> comentarios;
-    private Integer likes;
-    private Integer deslikes;
+
+    @ManyToMany
+    @JoinTable(
+            name = "postagem_tag",
+            joinColumns = @JoinColumn(name = "postagem_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Tag> tags;
+
+    @OneToMany(mappedBy = "postagem", cascade = CascadeType.ALL)
+    private List<Comentario> comentarios;
+    private Integer likes = 0;
+    private Integer deslikes = 0;
 
     public Postagem(){}
 
-    public Postagem(Integer idPostagem, Usuario usuario, String titulo, String conteudo, LocalDateTime dataCriacao, ArrayList<Tag> tags) {
+    public Postagem(Integer idPostagem, Usuario usuario, String titulo, String conteudo, LocalDateTime dataCriacao, List<Tag> tags) {
         this.idPostagem = idPostagem;
         this.usuario = usuario;
         this.titulo = titulo;
