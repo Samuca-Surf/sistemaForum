@@ -17,7 +17,7 @@ public class Usuario {
     private String email;
     private String nome;
     private String senha;
-    private Double telefone;
+    private String telefone;
 
     private Date dataNascimento;
     private LocalDateTime dataCadastro;
@@ -30,7 +30,7 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(Integer id, String email, String senha, String nome, Double telefone, Date dataNascimento, LocalDateTime dataCadastro, List<Postagem> postagens) {
+    public Usuario(Integer id, String email, String senha, String nome, String telefone, Date dataNascimento, LocalDateTime dataCadastro, List<Postagem> postagens) {
         this.id = id;
         this.email = email;
         this.senha = senha;
